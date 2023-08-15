@@ -1,0 +1,299 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Shell脚本 | 孤寂的灵魂</title><meta name="author" content="ZoeLi"><meta name="copyright" content="ZoeLi"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="shell脚本这个概念我知道大学毕业才有点概念，接下来我将写出我的学习体会。 shell分很多种，我主要使用Linux，所以自带的bash。 打开终端，屏幕上出现提示符：用户名@主机名 The art of command lines[手册](“the-art-of-command-line&#x2F;README-zh.md at master · jlevy&#x2F;the-art-of-c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本">
+<meta property="og:url" content="http://example.com/2023/08/09/Shell%E8%84%9A%E6%9C%AC/index.html">
+<meta property="og:site_name" content="孤寂的灵魂">
+<meta property="og:description" content="shell脚本这个概念我知道大学毕业才有点概念，接下来我将写出我的学习体会。 shell分很多种，我主要使用Linux，所以自带的bash。 打开终端，屏幕上出现提示符：用户名@主机名 The art of command lines[手册](“the-art-of-command-line&#x2F;README-zh.md at master · jlevy&#x2F;the-art-of-c">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2023-08-09T10:22:09.000Z">
+<meta property="article:modified_time" content="2023-08-11T10:15:19.651Z">
+<meta property="article:author" content="ZoeLi">
+<meta property="article:tag" content="shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/08/09/Shell%E8%84%9A%E6%9C%AC/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta/><meta/><meta/><meta/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Shell脚本',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-11 18:15:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 八音盒</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影院</span></a></li><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 个人</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="孤寂的灵魂"><span class="site-name">孤寂的灵魂</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-graduation-cap"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 八音盒</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影院</span></a></li><li><a class="site-page child" href="/shuoshuo/"><i class="fa-fw fa fa-comments-o"></i><span> 分享</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 个人</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Shell脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-08-09T10:22:09.000Z" title="发表于 2023-08-09 18:22:09">2023-08-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-08-11T10:15:19.651Z" title="更新于 2023-08-11 18:15:19">2023-08-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Shell脚本"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="post-content" id="article-container"><p>shell脚本这个概念我知道大学毕业才有点概念，接下来我将写出我的学习体会。</p>
+<p>shell分很多种，我主要使用Linux，所以自带的bash。</p>
+<p>打开终端，屏幕上出现提示符：用户名@主机名</p>
+<h2 id="The-art-of-command-lines-手册-“the-art-of-command-line-README-zh-md-at-master-·-jlevy-the-art-of-command-line-github-com-“"><a href="#The-art-of-command-lines-手册-“the-art-of-command-line-README-zh-md-at-master-·-jlevy-the-art-of-command-line-github-com-“" class="headerlink" title="The art of command lines[手册](“the-art-of-command-line&#x2F;README-zh.md at master · jlevy&#x2F;the-art-of-command-line (github.com)“)"></a><strong>The art of command lines</strong>[手册](“<a target="_blank" rel="noopener" href="https://github.com/jlevy/the-art-of-command-line/blob/master/README-zh.md">the-art-of-command-line&#x2F;README-zh.md at master · jlevy&#x2F;the-art-of-command-line (github.com)</a>“)</h2><h3 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h3><p>熟悉至少一个基于文本的编辑器（vim）。</p>
+<pre><code class="bash">#打开文件
+$ vim filename
+#打开insert模式
+$ i
+#回到命令模式
+按esc
+#保存当前文件并退出Vim
+$:wq
+#不保存文件并退出Vim
+$:q!
+#删除当前行
+$ dd
+</code></pre>
+<p>学会如何使用 <code>man</code> 命令去阅读文档。学会使用 <code>apropos</code> 去查找文档。知道有些命令并不对应可执行文件，而是在 Bash 内置好的，此时可以使用 <code>help</code> 和 <code>help -d</code> 命令获取帮助信息。你可以用 <code>type 命令</code> 来判断这个命令到底是可执行文件、shell 内置命令还是别名。</p>
+<pre><code class="bash">#print work dirctionary
+$ pwd
+#read documents
+$ man
+#search the keywords in the page of man_docs
+$apropos date
+# get the bash internal command and help_info（internal command = builtin）
+$ help cd
+#get the help_info about alias
+$ help -d
+#Determine whether a command is an executable, shell-builtin, or alias
+$type -a ls
+</code></pre>
+<p>学会使用 &gt; 和 &lt; 来重定向输出和输入，学会使用 | 来重定向管道。明白 &gt; 会覆盖了输出文件而 &gt;&gt; 是在文件末添加。了解标准输出 stdout 和标准错误 stderr。了解其对应的接口：0,1,2。</p>
+<pre><code class="bash">#使用&gt;将命令的输出写入文件。如果文件已经存在，则会覆盖文件内容。
+$ command &gt; file.txt
+#使用&gt;&gt;将命令的输出添加到文件的末尾，而不会覆盖原有内容
+$ command &gt;&gt; file.txt
+#使用&lt;将文件中的内容作为命令的输入。
+$ command &lt; file.txt
+#使用|将一个命令的输出作为另一个命令的输入，command1 会生成输出，然后通过管道将其传递给 command2
+$ command1 | command2
+#例如：过滤数据，将打开名为 file.txt 的文件，并将其内容传递给 grep 命令进行过滤。grep 命令将会搜索包含关键词 keyword 的行并输出。
+$cat file.txt | grep keyword
+
+#标准输出（stdout）：命令的正常输出都会发送到stdout，默认情况下是在终端上显示。可以使用输出重定向符号&gt;或&gt;&gt;将stdout重定向到文件，从而将输出保存到文件中。
+#标准错误（stderr）：命令的错误输出会发送到stderr，默认情况下也是在终端上显示。可以使用重定向符号2&gt;将stderr重定向到文件，即将错误信息保存到文件中。
+#使用&gt;重定向stdout，并使用2&gt;重定向stderr到不同的文件。
+$ command &gt; output.txt 2&gt; error.txt
+#使用&amp;&gt;将stdout和stderr都重定向到同一个文件。
+$ command &amp;&gt; output_and_error.txt
+
+#进入目录/proc/pid/fd，可以查看口情况
+$
+#ps命令：查看当前运行程序
+#a：显示当前终端下的所有进程信息，包括其他用户的进程。
+#u：使用以用户为主的格式输出进程信息。
+#x：显示当前用户在所有终端下的进程。
+$ps aux
+#查看cup、内存情况
+$top
+#以树状图的方式展现进程之间的派生关系
+$ pstree -aup
+#调到前台
+$ fg num
+</code></pre>
+<h1 id="一、程序"><a href="#一、程序" class="headerlink" title="一、程序"></a>一、程序</h1><p>命令由程序名+参数组成。如以下</p>
+<pre><code class="bash">#打印当前时间
+$ date 
+#打印参数
+$ echo hello
+#参数中有空格
+$ echo &quot;hello word&quot;
+#下述方法也行
+$ echo hello\ world
+</code></pre>
+<p>程序执行是系统先在路径中搜索，以下是系统设置的路径</p>
+<pre><code class="bash">$ echo $PATH
+</code></pre>
+<p>使用which获取程序的路径</p>
+<pre><code class="bash">$ which echo
+/usr/bin/echo
+</code></pre>
+<p>但是获取不到shell的built-in的路径，如：cd、exec、return，因为cd is not the executable program as ls, but it is the internal command related to shell data and control. </p>
+<pre><code class="bash">$ which cd
+...
+$type -a cd
+cd is a shell builtin
+</code></pre>
+<p>变量与参数</p>
+<pre><code class="bash">#定义一个变量
+$foo=var
+#使用变量
+$$(foo)
+#在字符串中使用变量
+&quot;we are in $(pwd)”
+&quot;the time is $(date)&quot;
+&quot;the content is $(foo)&quot;
+#常见参数
+$0 #脚本名
+$1 #第一个参数
+$# #参数数量
+$@ #所有参数 
+$$ #命令进程ID
+$? 未知的
+</code></pre>
+<p>查找文件</p>
+<pre><code class="bash">#ls
+$ ls foo/foo
+#find
+$ find . -name &quot;*.tmp&quot; -type f
+$ find . -path &#39;**/test/*.py&#39; -type f
+#查找一天以内修改过的时间
+$ find . -mtime -1
+#. 在此表示当前目录;-name “*ab” 表示查找以ab结尾的文件或文件名;-exec表示执行什么命令。后面跟要执行的命令。此处是rm -f，表示不确认删除;&#123;&#125; \;表示把查找到的结果发送到此来。
+$ find . -name &quot;*ab*&quot; -exec rm -f &#123;&#125; \;
+#在&#123;&#125;和\之间必须要有空格，否则会报上面的错
+</code></pre>
+<p>查找文件内容</p>
+<pre><code class="bash">#grep:过滤/查找出指定内容
+$grep fopobar foobar.sh
+#-R表示遍历整个目录
+$grep -R foobar foobar.sh 
+#fzf:交互式查找
+$ cat a.c | fzf
+</code></pre>
+<p> 目录列表</p>
+<pre><code class="BASH">#递归查看所有
+$ls -R
+#树形结构
+$tree
+</code></pre>
+<h1 id="二、函数"><a href="#二、函数" class="headerlink" title="二、函数"></a>二、函数</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">ZoeLi</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/08/09/Shell%E8%84%9A%E6%9C%AC/">http://example.com/2023/08/09/Shell脚本/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">孤寂的灵魂</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/shell/">shell</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/08/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" title="计算机系统基础"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机系统基础</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">ZoeLi</div><div class="author-info__description">勇气是我最大的赞歌</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/zoe-mud" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="/mengjaioli666@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Updating my Blog..,</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#The-art-of-command-lines-%E6%89%8B%E5%86%8C-%E2%80%9Cthe-art-of-command-line-README-zh-md-at-master-%C2%B7-jlevy-the-art-of-command-line-github-com-%E2%80%9C"><span class="toc-text">The art of command lines[手册](“the-art-of-command-line&#x2F;README-zh.md at master · jlevy&#x2F;the-art-of-command-line (github.com)“)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="toc-text">基础命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%A8%8B%E5%BA%8F"><span class="toc-text">一、程序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%87%BD%E6%95%B0"><span class="toc-text">二、函数</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/Shell%E8%84%9A%E6%9C%AC/" title="Shell脚本"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shell脚本"/></a><div class="content"><a class="title" href="/2023/08/09/Shell%E8%84%9A%E6%9C%AC/" title="Shell脚本">Shell脚本</a><time datetime="2023-08-09T10:22:09.000Z" title="发表于 2023-08-09 18:22:09">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" title="计算机系统基础"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机系统基础"/></a><div class="content"><a class="title" href="/2023/08/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80/" title="计算机系统基础">计算机系统基础</a><time datetime="2023-08-09T08:06:38.000Z" title="发表于 2023-08-09 16:06:38">2023-08-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/04/%E8%A7%A3%E5%86%B3Ubuntu%E6%8A%A5%E9%94%99E-Unable-to-locate-package-yum/" title="解决Ubuntu报错E:Unable to locate package yum"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决Ubuntu报错E:Unable to locate package yum"/></a><div class="content"><a class="title" href="/2023/08/04/%E8%A7%A3%E5%86%B3Ubuntu%E6%8A%A5%E9%94%99E-Unable-to-locate-package-yum/" title="解决Ubuntu报错E:Unable to locate package yum">解决Ubuntu报错E:Unable to locate package yum</a><time datetime="2023-08-04T03:51:45.000Z" title="发表于 2023-08-04 11:51:45">2023-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/04/Linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" title="Linux远程登录"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux远程登录"/></a><div class="content"><a class="title" href="/2023/08/04/Linux%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" title="Linux远程登录">Linux远程登录</a><time datetime="2023-08-04T03:09:45.000Z" title="发表于 2023-08-04 11:09:45">2023-08-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/03/Linux%E5%9F%BA%E7%A1%80/" title="Linux基础"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux基础"/></a><div class="content"><a class="title" href="/2023/08/03/Linux%E5%9F%BA%E7%A1%80/" title="Linux基础">Linux基础</a><time datetime="2023-08-03T13:48:23.000Z" title="发表于 2023-08-03 21:48:23">2023-08-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By ZoeLi</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="true" data-text="富强,民主,文明,和谐,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="15px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div class="no-result" id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
