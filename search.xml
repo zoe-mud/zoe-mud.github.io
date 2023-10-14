@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>c++学习与思考</title>
+      <link href="/2023/10/13/c-%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%9D%E8%80%83/"/>
+      <url>/2023/10/13/c-%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%80%9D%E8%80%83/</url>
+      
+        <content type="html"><![CDATA[<p>调用静态成员函数或变量，使用类名::函数名，非静态成员函数或变量，使用实例.函数名</p><pre><code class="c">class Entity&#123;public:    //静态成员变量    static int s;         //非静态成员变量    int n;        //构造函数    MyClass(int n)    &#123;        this-&gt;n = n;    &#125;        //静态成员函数    static void staticMethod()    &#123;            &#125;        //非静态成员函数    void nonStaticMethod()    &#123;            &#125;&#125;;//初始化静态成员变量int Entity::s = 10;int main()&#123;    cout&lt;&lt;&quot;静态成员变量&quot;&lt;&lt;Entity::s;        cout&lt;&lt;&quot;非静态成员变量&quot;&lt;&lt;Entity::n;        //创建对象    Entity e(20);        //调用静态函数    Entity::staticMethod();        //调用非静态函数    e.nonStaticMethod();        return 0;        &#125;</code></pre><p>-&gt;：通过指针访问对象的成员，指针-&gt;成员名</p><p>.：通过对象本身访问成员，对象.成员名</p><p>c++中this的作用：指向成员函数所作用的对象。所以非静态成员函数中可以直接使用this来代表指向该函数作用的对象的指针。</p><p>注：实际上每个成员函数的第一个参数默认都有个指向对象的指针this，this指针为空时，即表示所指向对象为空，相当于成员函数的第一个参数是NULL，那么只要成员函数没有使用到成员变量，也是可以正常执行。</p><p>静态成员函数不能使用this指针，因为静态成员函数相当于是共享的变量，不属于某个对象的变量。</p><p>this的本质是指针常量。</p><h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>模板形参表示的是一个未知的类型,比如：int,Entity</p><h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><p>模板声明或定义只能在全局，命名空间或类范围 </p><p>函数模板是不会进行隐式数据类型转换</p><p>当函数模板和普通函数都符合调用时，优先选择普通重载函数</p><pre><code class="c++">#include&lt;iostream&gt;using namespace std;template &lt;class T,class T1&gt; void ADD( T&amp; a,  T1&amp; b) &#123;//使用引用可以不用创建副本    a--;    b++;&#125;int main() &#123;    int x = 10;    double y = 11.1;    //ADD(x, y);//自动数据推导    ADD&lt;int, double&gt;(x, y);    cout &lt;&lt; &quot;x:&quot; &lt;&lt; x &lt;&lt; endl;    cout &lt;&lt; &quot;y:&quot; &lt;&lt; y &lt;&lt; endl;&#125;</code></pre><h3 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h3><ul><li><p>创建对象方式</p><p>默认构造函数</p><pre><code>MyClass obj;  // 使用默认构造函数创建对象</code></pre><p>参数化构造函数</p><pre><code>MyClass obj(10, 3.14);  // 使用参数化构造函数创建对象，并传入参数</code></pre><p>拷贝构造函数</p><pre><code>MyClass obj1(10, 3.14);MyClass obj2(obj1);  // 使用拷贝构造函数创建对象</code></pre><p>赋值运算符</p><pre><code>MyClass obj1(10, 3.14);MyClass obj2 = obj1;  // 使用赋值运算符创建对象</code></pre><p>结合new运算符动态创建对象，并返回指向该对象的指针</p><pre><code>MyClass* ptr = new MyClass(10, 3.14);  // 动态创建对象，并返回指针delete ptr;  // 手动释放动态创建的对象所占用的内存</code></pre></li><li><p>类模板教程</p></li><li><p>类模板示例</p></li><li><pre><code class="c++">#include&lt;iostream&gt;using namespace std;class Entity &#123;public:    T a, b;    T swap1(T&amp; a, T&amp; b)&#123;    T c;    c = a;    a = b;    b = c;    &#125;&#125;;int main() &#123;    Entity&lt;char&gt;* e0 = new Entity&lt;char&gt;(&#39;a&#39;,&#39;b&#39;);//new运算符动态创建对象，并返回指向该对象的指针    Entity&lt;double&gt; e1(3.4,2.5);    Entity&lt;double&gt; e2(e1);    e0-&gt;swap1();    e2.swap1();    cout &lt;&lt; e0-&gt;a &lt;&lt; endl;    cout &lt;&lt; e2.a &lt;&lt; endl;    delete e0;&#125;</code></pre></li></ul><pre><code>https://blog.csdn.net/soonfly/article/details/51131141https://zhuanlan.zhihu.com/p/339866296https://blog.csdn.net/qq_27825451/article/details/103081289https://zhuanlan.zhihu.com/p/37306637https://blog.csdn.net/qq_54169998/article/details/121001056https://blog.csdn.net/m0_53636439/article/details/119777817</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>逆向-简单脱壳</title>
       <link href="/2023/10/13/%E9%80%86%E5%90%91-%E7%AE%80%E5%8D%95%E8%84%B1%E5%A3%B3/"/>
       <url>/2023/10/13/%E9%80%86%E5%90%91-%E7%AE%80%E5%8D%95%E8%84%B1%E5%A3%B3/</url>
